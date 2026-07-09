@@ -1,0 +1,68 @@
+name: VSA
+options:
+  bundleIdPrefix: com.vsa
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+configs:
+  Debug: debug
+  Release: release
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    SUPPORTS_MACCATALYST: NO
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_PREVIEWS: YES
+targets:
+  VSA:
+    type: application
+    platform: iOS
+    sources:
+      - path: VSA
+      - path: Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vsa.stickers
+        PRODUCT_NAME: VSA
+        INFOPLIST_FILE: VSA/Resources/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: NO
+    entitlements:
+      path: VSA/VSA.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.vsa.stickers
+    dependencies:
+      - target: VSAKeyboard
+        embed: true
+
+  VSAKeyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: VSAKeyboard
+      - path: Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.vsa.stickers.keyboard
+        PRODUCT_NAME: VSAKeyboard
+        INFOPLIST_FILE: VSAKeyboard/Info.plist
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
+    entitlements:
+      path: VSAKeyboard/VSAKeyboard.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.vsa.stickers
+schemes:
+  VSA:
+    build:
+      targets:
+        VSA: all
+    run:
+      config: Debug
+    archive:
+      config: Release
