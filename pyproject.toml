@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wyckoff-vsa"
+version = "0.1.0"
+description = "Nhận diện phase Wyckoff / phân tích VSA từ ảnh chụp chart chứng khoán bằng Claude vision."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "anthropic>=0.40.0",
+    "Pillow>=10.0.0",
+    "rich>=13.7.0",
+]
+
+[project.scripts]
+wyckoff-vsa = "wyckoff_vsa.cli:main"
+
+[tool.setuptools]
+packages = ["wyckoff_vsa"]
